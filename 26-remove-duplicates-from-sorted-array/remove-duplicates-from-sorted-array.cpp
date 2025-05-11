@@ -18,7 +18,7 @@ public:
         }
 
         nums[i]=last;        
-        return ct;
+        return i+1;
         
     }
 };
