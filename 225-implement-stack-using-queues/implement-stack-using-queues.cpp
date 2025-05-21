@@ -5,14 +5,12 @@ public:
     MyStack() {
     }
     void push(int x) {
-        queue<int> q1;
-        q1.push(x);
-        while(!q2.empty())
+        q2.push(x);
+        for(int i=0;i<q2.size()-1;i++)
         {
-            q1.push(q2.front());
+            q2.push(q2.front());
             q2.pop();
         }
-        q2=q1;
     }   
     int pop() {       
        int x = q2.front();
