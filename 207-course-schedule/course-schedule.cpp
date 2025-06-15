@@ -1,29 +1,32 @@
 class Solution {
 public:
-    bool dfs(int node , vector<int> &vis , vector<vector<int>> &adjlist)
-    {
-        vis[node]=1;
-        for(auto &adjnode:adjlist[node])
-        {
-            if(vis[adjnode]==1)return true;
-            if(vis[adjnode]==0 && dfs(adjnode,vis,adjlist))return true;
-        }
-        vis[node]=2;
-        return false;
-    }
     bool canFinish(int n, vector<vector<int>>& prerequisites) {
         vector<vector<int>> adjlist(n);
+        vector<int> in(n,0);
         for(auto &p:prerequisites)
         {
             int u = p[0];
             int v = p[1];
-            adjlist[u].push_back(v);
+            adjlist[v].push_back(u);
+            in[u]++;
         }
-        vector<int> vis(n);
+        queue<int> q;
         for(int i=0;i<n;i++)
         {
-            if(vis[i]==0 && dfs(i,vis,adjlist))return false; 
+            if(in[i]==0)q.push(i);
         }
-        return true;
+        int count = 0;
+        while(!q.empty())
+        {
+            count++;
+            int node = q.front();
+            q.pop();
+            for(int &adjnode:adjlist[node])
+            {
+                in[adjnode]--;
+                if(in[adjnode]==0)q.push(adjnode);
+            }
+        }
+        return count==n;
     }
 };
