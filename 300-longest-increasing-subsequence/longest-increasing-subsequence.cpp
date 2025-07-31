@@ -1,24 +1,20 @@
 class Solution {
 public:
-    int dp[2501][2502];
-    int f(int ind, int prev, vector<int>&nums)
-    {
-        if(ind>=nums.size())return 0;
-        if(dp[ind][prev+1]!=-1)return dp[ind][prev+1];
-        int take = 0;
-        if(prev==-1)
-        {
-            take = 1 + f(ind+1,ind,nums);
-        }
-        else if(nums[ind]>nums[prev])
-        {
-            take = 1+f(ind+1,ind,nums);
-        }
-        int nottake = f(ind+1,prev,nums);
-        return dp[ind][prev+1] =  max(take,nottake);
-    }
+
+
     int lengthOfLIS(vector<int>& nums) {
-        memset(dp,-1,sizeof(dp));
-        return f(0,-1,nums);
+        int n = nums.size();
+        vector<int> dp(n+1,0);
+        for(int i=n-1;i>=0;i--){
+            vector<int> t(n+1,0);
+            for(int j=i-1;j>=-1;j--){
+                int take = 0;
+                if(j==-1 || nums[i]>nums[j])take=1+dp[i+1];
+                int notTake = dp[j+1];
+                t[j+1]=max(take,notTake);
+            }
+            dp=t;
+        }
+        return dp[0];
     }
 };
