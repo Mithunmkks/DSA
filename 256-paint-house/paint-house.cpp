@@ -27,7 +27,8 @@ public:
                 
             }
         }
-        return *min_element(dp[0].begin(),dp[0].end());
+        //return *min_element(dp[0].begin(),dp[0].end());
+        return dp[0][0];
 
 
     }
