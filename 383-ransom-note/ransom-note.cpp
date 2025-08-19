@@ -1,17 +1,13 @@
 class Solution {
 public:
     bool canConstruct(string ransomNote, string magazine) {
-        map<char,int> hashmap;
-        for(auto ch:magazine)hashmap[ch]++;
+        int hash[26]={0};
+        for(auto ch:magazine)hash[ch-'a']++;
         for(auto ch:ransomNote){
-            if(hashmap.find(ch)==hashmap.end())return false;
-            else{
-                hashmap[ch]--;
-                if(hashmap[ch]==0){
-                    hashmap.erase(ch);
-                }
-            } 
+            if(hash[ch-'a']==0)return false;
+            hash[ch-'a']--;
         }
         return true;
+
     }
 };
