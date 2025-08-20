@@ -1,45 +1,20 @@
 class Solution {
 public:
     string addStrings(string num1, string num2) {
-        reverse(num1.begin(),num1.end());
-        reverse(num2.begin(),num2.end());
-        int n = num1.size();
-        int m = num2.size();
-        int i=0,j=0;
-        int carry = 0;
-        string ans ="";
-
-        // 11i
-        // 12j3
-
-
-        while(i<n && j<m){
-            int num = (num1[i]-'0') + (num2[j]-'0') + carry;
-            carry=(num/10);
-            num = num%10;
-            ans=to_string(num)+ans;
-            i++;
-            j++;
+        int i=num1.size()-1;
+        int j=num2.size()-1;
+        int carry =0;
+        string ans;
+        while(i>=0 || j>=0 || carry>0){
+            int x = i<0?0:num1[i]-'0';
+            int y = j<0?0:num2[j]-'0';
+            int num = x+y+carry;
+            ans.push_back((num%10)+'0');
+            carry=num/10;
+            i--;
+            j--;
         }
-        cout<<ans;
-        while(i<n){
-            int num = (num1[i]-'0') + carry;
-            carry=(num/10);
-            num = num%10;
-            ans=to_string(num)+ans;
-            i++;
-        }
-        while(j<m){
-            int num = (num2[j]-'0') + carry;
-            carry=(num/10);
-            num=num%10;
-            ans=to_string(num)+ans;
-            j++;
-        }
-        if(carry>0){
-            ans=to_string(carry)+ans;
-        }
+        reverse(ans.begin(),ans.end());
         return ans;
-
     }
 };
