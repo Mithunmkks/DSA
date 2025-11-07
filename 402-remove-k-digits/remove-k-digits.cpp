@@ -15,10 +15,13 @@ public:
             ans.push_back(st.top());
             st.pop();
         }
-        while(ans.size()>0 && ans.back()=='0')ans.pop_back();
-        if(ans.size()==0)return "0";
         reverse(ans.begin(),ans.end());
-        return ans;
+        int idx = 0;
+        while (idx < ans.size() && ans[idx] == '0') idx++;
+        ans = ans.substr(idx);
+
+        return ans.empty() ? "0" : ans;
+
         
     }
 };
