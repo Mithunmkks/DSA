@@ -1,20 +1,17 @@
 class Solution {
 public:
-
-
+    // 0 , 10 ,1 , 2 , 3 , 15
+    // 5       4    3    2     1 
+ 
     int lengthOfLIS(vector<int>& nums) {
-        int n = nums.size();
-        vector<int> dp(n+1,0);
-        for(int i=n-1;i>=0;i--){
-            vector<int> t(n+1,0);
-            for(int j=i-1;j>=-1;j--){
-                int take = 0;
-                if(j==-1 || nums[i]>nums[j])take=1+dp[i+1];
-                int notTake = dp[j+1];
-                t[j+1]=max(take,notTake);
-            }
-            dp=t;
+       int n = nums.size();
+       vector<int> dp(n,1);
+       for(int i=n-1;i>=0;i--){
+        int cur = nums[i];
+        for(int j=i+1;j<n;j++){
+            if(cur<nums[j])dp[i]=max(dp[i],1+dp[j]);
         }
-        return dp[0];
+       }
+       return *max_element(dp.begin(),dp.end());
     }
 };
